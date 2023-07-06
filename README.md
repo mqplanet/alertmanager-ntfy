@@ -41,7 +41,7 @@ ntfy:
     username: "admin"
     password: "verysecure"
   notification:
-    # The topic can either be a hardcoded string or a gval expression that evaluates to a string
+    # The topic can either be a hardcoded string or can use variable template {{ .Label "topic }}
     topic: alertmanager
     # Priority reference: https://docs.ntfy.sh/publish/#message-priority
     # Can either be a hardcoded string or a gval expression that evaluates to a string
