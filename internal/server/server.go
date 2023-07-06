@@ -208,11 +208,13 @@ func (s *Server) getUrl(alert *alertmanager.Alert) (*urlpkg.URL, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	topic, err := evalStringExpr(&s.cfg.Ntfy.Notification.Topic, alert)
-	if err != nil {
-		return nil, fmt.Errorf("topic expression eval: %w", err)
-	}
+	
+        var topicBuf bytes.Buffer
+        if err := (*template.Template)(s.cfg.Ntfy.Notification.Topic).Execute(&topicBuf, alert); err != nil {
+                return nil, fmt.Errorf("render topic: %w", err)
+        }
+        
+        topic := strings.TrimSpace(topicBuf.String())
 
 	if topic == "" {
 		return nil, errors.New("topic is empty")

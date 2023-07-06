@@ -25,6 +25,7 @@ type Expression struct {
 type Templates struct {
 	Title       *Template `yaml:"title"`
 	Description *Template `yaml:"description"`
+        Channel     *Template `yaml:"channel"`
 }
 
 type Tag struct {
@@ -43,7 +44,8 @@ type StringExpression struct {
 }
 
 type Notification struct {
-	Topic     StringExpression  `yaml:"topic"`
+	//Topic     StringExpression  `yaml:"topic"`
+	Topic     *Template  `yaml:"topic"`
 	Priority  *StringExpression `yaml:"priority"`
 	Tags      []*Tag            `yaml:"tags"`
 	Templates *Templates        `yaml:"templates"`
